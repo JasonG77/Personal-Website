@@ -4,9 +4,7 @@ import {
     Mail,
     MapPin,
     Phone,
-    Send,
-    Twitch,
-    Twitter,
+    Send
   } from "lucide-react";
   import { cn } from "@/lib/utils";
   import { useToast } from "@/hooks/use-toast";
@@ -59,7 +57,7 @@ import {
                       href="mailto:hello@gmail.com"
                       className="text-muted-foreground hover:text-primary transition-colors"
                     >
-                      hello@gmail.com
+                      jasongutierrez318@gmail.com
                     </a>
                   </div>
                 </div>
@@ -73,7 +71,7 @@ import {
                       href="tel:+11234567890"
                       className="text-muted-foreground hover:text-primary transition-colors"
                     >
-                      +1 (123) 456-7890
+                      +1 (832) 419-7726
                     </a>
                   </div>
                 </div>
@@ -84,7 +82,7 @@ import {
                   <div>
                     <h4 className="font-medium"> Location</h4>
                     <a className="text-muted-foreground hover:text-primary transition-colors">
-                      Vancouver, BC, Canada
+                      Stanford, CA, USA
                     </a>
                   </div>
                 </div>
@@ -93,17 +91,11 @@ import {
               <div className="pt-8">
                 <h4 className="font-medium mb-4"> Connect With Me</h4>
                 <div className="flex space-x-4 justify-center">
-                  <a href="#" target="_blank">
+                  <a href="https://www.linkedin.com/in/jason-gutierrez7/" target="_blank">
                     <Linkedin />
                   </a>
-                  <a href="#" target="_blank">
-                    <Twitter />
-                  </a>
-                  <a href="#" target="_blank">
+                  <a href="https://www.instagram.com/jxsn.778/" target="_blank">
                     <Instagram />
-                  </a>
-                  <a href="#" target="_blank">
-                    <Twitch />
                   </a>
                 </div>
               </div>
@@ -130,7 +122,7 @@ import {
                     name="name"
                     required
                     className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden foucs:ring-2 focus:ring-primary"
-                    placeholder="Pedro Machado..."
+                    placeholder="John Doe..."
                   />
                 </div>
   
