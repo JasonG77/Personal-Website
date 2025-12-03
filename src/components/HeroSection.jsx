@@ -21,7 +21,7 @@ export const HeroSection = () => {
           </h1>
 
           <p className="text-lg md:text-xl text-muted-foreground max-2-2xl mx-auto opacity-0 animate-fade-in-delay-3">
-            I am a first-generation student at Stanford University. I love to build projects that combine Computer Science and Electrical Engineering through embedded systems and effective softrware to create solutions for social good.
+            I am a first-generation student at Stanford University. I love to build projects that combine Computer Science and Electrical Engineering through embedded systems and effective software to create solutions for social good.
           </p>
 
           <div className="pt-4 opacity-0 animate-fade-in-delay-4">
