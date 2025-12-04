@@ -4,7 +4,7 @@ const projects = [
   {
     id: 1,
     title: "MediHelper",
-    description: "A beautiful landing page app using React and Tailwind.",
+    description: "Designed and built a healthcare accessibility app with React, Google Cloud, and Gemini.",
     image: "src/projectPics/medHelper.png",
     tags: ["React", "Google Cloud", "Gemini AI"],
     demoUrl: "#",
@@ -14,7 +14,7 @@ const projects = [
     id: 2,
     title: "Light Controlled Theremin Instrument",
     description:
-      "Interactive analytics dashboard with data visualization and filtering capabilities.",
+      "Real-time Theremin system on an STM32L4 microcontroller, integrating a photoresistor-driven 12-bit ADC pipeline with DAC-based audio synthesis",
     image: "src/projectPics/theremin.jpg",
     tags: ["STM32 MCU", "ADC/DAC", "C"],
     demoUrl: "#",
@@ -24,7 +24,7 @@ const projects = [
     id: 3,
     title: "Smart Bike Light System",
     description:
-      "Full-featured e-commerce platform with user authentication and payment processing.",
+      "Programmed STM32 firmware to implement auto-canceling turn signals using gyroscope",
     image: "src/projectPics/bikr.jpg",
     tags: ["STM32 MCU", "I2C", "C"],
     demoUrl: "#",
