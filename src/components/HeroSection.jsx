@@ -1,20 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Pause, Play, SkipBack, SkipForward, Volume2, VolumeX } from "lucide-react";
+import { tracks } from "../data/tracks";
 
 const archiveItems = [
   { label: "About", href: "#about" },
-  { label: "Academics", href: "#academics" },
-  { label: "Experience", href: "#experience" },
   { label: "Projects", href: "#projects" },
-  { label: "Aspirations", href: "#aspirations" },
   { label: "Contact", href: "#contact" },
   { label: "Resume", href: "#contact" },
-];
-
-const tracks = [
-  { title: "Signal Path", artist: "Jason Gutierrez", notes: [261.63, 329.63, 392, 493.88] },
-  { title: "Night Lab", artist: "Jason Gutierrez", notes: [220, 277.18, 329.63, 415.3] },
-  { title: "Open Circuit", artist: "Jason Gutierrez", notes: [293.66, 369.99, 440, 369.99] },
 ];
 
 const scrollTo = (href) => {
@@ -35,13 +27,30 @@ export const HeroSection = () => {
 
   const stopAudio = useCallback(() => {
     if (!audioRef.current) return;
-    window.clearInterval(audioRef.current.timer);
-    audioRef.current.context.close();
+    if (audioRef.current.kind === "file") {
+      audioRef.current.audio.pause();
+      audioRef.current.audio.src = "";
+    } else {
+      window.clearInterval(audioRef.current.timer);
+      audioRef.current.context.close();
+    }
     audioRef.current = null;
   }, []);
 
-  const startAudio = useCallback(() => {
+  const startAudio = useCallback((index = trackIndex) => {
     if (audioRef.current) return;
+    const track = tracks[index];
+    if (track.src) {
+      const audio = new Audio(track.src);
+      audio.volume = isMuted ? 0 : volume;
+      audio.addEventListener("timeupdate", () => {
+        if (audio.duration) setProgress((audio.currentTime / audio.duration) * 100);
+      });
+      audio.addEventListener("ended", () => setProgress(0));
+      audio.play();
+      audioRef.current = { kind: "file", audio };
+      return;
+    }
     const AudioContext = window.AudioContext || window.webkitAudioContext;
     if (!AudioContext) return;
     const context = new AudioContext();
@@ -54,7 +63,7 @@ export const HeroSection = () => {
       const oscillator = context.createOscillator();
       const gain = context.createGain();
       oscillator.type = "triangle";
-      oscillator.frequency.value = tracks[trackIndex].notes[step % 4];
+      oscillator.frequency.value = track.demoNotes[step % track.demoNotes.length];
       gain.gain.setValueAtTime(0.0001, now);
       gain.gain.exponentialRampToValueAtTime(0.11, now + 0.025);
       gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.34);
@@ -64,7 +73,7 @@ export const HeroSection = () => {
       setProgress((value) => (value + 4) % 101);
     };
     playNote();
-    audioRef.current = { context, master, timer: window.setInterval(playNote, 380) };
+    audioRef.current = { kind: "demo", context, master, timer: window.setInterval(playNote, 380) };
   }, [isMuted, trackIndex, volume]);
 
   const togglePlayback = useCallback(() => {
@@ -74,11 +83,12 @@ export const HeroSection = () => {
 
   const changeTrack = useCallback((direction) => {
     const wasPlaying = Boolean(audioRef.current);
+    const nextIndex = (trackIndex + direction + tracks.length) % tracks.length;
     stopAudio();
-    setTrackIndex((value) => (value + direction + tracks.length) % tracks.length);
+    setTrackIndex(nextIndex);
     setProgress(0);
-    if (wasPlaying) setIsPlaying(false);
-  }, [stopAudio]);
+    if (wasPlaying) window.setTimeout(() => startAudio(nextIndex), 0);
+  }, [startAudio, stopAudio, trackIndex]);
 
   const moveSelection = useCallback((direction) => {
     if (mode === "music") changeTrack(direction);
@@ -95,7 +105,9 @@ export const HeroSection = () => {
   }, []);
 
   useEffect(() => {
-    if (audioRef.current) audioRef.current.master.gain.value = isMuted ? 0 : volume;
+    if (!audioRef.current) return;
+    if (audioRef.current.kind === "file") audioRef.current.audio.volume = isMuted ? 0 : volume;
+    else audioRef.current.master.gain.value = isMuted ? 0 : volume;
   }, [isMuted, volume]);
   useEffect(() => () => stopAudio(), [stopAudio]);
 
@@ -128,18 +140,20 @@ export const HeroSection = () => {
         <strong>JASON GUTIERREZ</strong>
         <span>STANFORD ELECTRICAL ENGINEERING</span>
         <span>PERSONAL ARCHIVE / 2026</span>
+        <em>hardware + software for social good</em>
       </div>
+      <span className="tape-accent tape-one" aria-hidden="true" />
+      <span className="sketch-note" aria-hidden="true">built by hand ↘</span>
 
       <div className="mp3-player" onKeyDown={handleKeyDown} onWheel={handleWheel}>
         <div className="player-screen" aria-live="polite">
           <div className="screen-status"><span>{isPlaying ? "Ⅱ" : "■"}</span><strong>{mode === "music" ? "MY SOUNDS" : "PERSONAL ARCHIVE"}</strong><span>▮▮▮</span></div>
           {mode === "music" ? (
             <div className="music-screen">
-              <small>{String(trackIndex + 1).padStart(2, "0")} / {String(tracks.length).padStart(2, "0")}</small>
-              <strong>{tracks[trackIndex].title}</strong>
-              <span>{tracks[trackIndex].artist}</span>
-              <div className="screen-progress"><i style={{ width: `${progress}%` }} /></div>
-              <small>{isPlaying ? "PLAYING ORIGINAL LOOP" : "PRESS PLAY"}</small>
+              <ul className="track-list">
+                {tracks.map((track, index) => <li key={track.title} className={trackIndex === index ? "selected" : ""}><button onClick={() => { if (index !== trackIndex) changeTrack(index - trackIndex); }}>{track.title}<b>›</b></button></li>)}
+              </ul>
+              <div className="now-playing"><span>{isPlaying ? "▶" : "■"} {tracks[trackIndex].title} — {tracks[trackIndex].artist}</span><div className="screen-progress"><i style={{ width: `${progress}%` }} /></div></div>
             </div>
           ) : (
             <ul className="archive-list">
@@ -168,7 +182,7 @@ export const HeroSection = () => {
       </div>
 
       <button className="edge-link edge-about" onClick={() => scrollTo("#about")}>ABOUT</button>
-      <button className="edge-link edge-enter" onClick={() => { setMode("archive"); setSelected(3); }}>ENTER</button>
+      <button className="edge-link edge-enter" onClick={() => { setMode("archive"); setSelected(1); }}>ENTER</button>
       <nav className="sr-only" aria-label="Text portfolio navigation">
         {archiveItems.map((item) => <a key={item.label} href={item.href}>{item.label}</a>)}
       </nav>
