@@ -16,7 +16,7 @@ export const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.screenY > 10);
+      setIsScrolled(window.scrollY > 10);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -25,8 +25,8 @@ export const Navbar = () => {
   return (
     <nav
       className={cn(
-        "fixed w-full z-40 transition-all duration-300",
-        isScrolled ? "py-3 bg-background/80 backdrop-blur-md shadow-xs" : "py-5"
+        "fixed w-full z-40 transition-all duration-300 portfolio-nav",
+        isScrolled ? "nav-visible py-3" : "nav-hidden py-5"
       )}
     >
       <div className="container flex items-center justify-between">
@@ -34,10 +34,7 @@ export const Navbar = () => {
           className="text-xl font-bold text-primary flex items-center"
           href="#hero"
         >
-          <span className="relative z-10">
-            <span className="text-glow text-foreground"> Jason Gutierrez </span>{" "}
-            Portfolio
-          </span>
+          <span className="relative z-10">JG / PORTFOLIO</span>
         </a>
 
         {/* desktop nav */}
