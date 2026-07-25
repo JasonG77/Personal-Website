@@ -1,111 +1,25 @@
-import { ArrowRight, ExternalLink, Github } from "lucide-react";
+import medHelper from "../projectPics/medHelper.png";
+import theremin from "../projectPics/theremin.jpg";
+import bikeLight from "../projectPics/bikr.jpg";
 
 const projects = [
-  {
-    id: 1,
-    title: "MediHelper",
-    description: "Designed and built a healthcare accessibility app with React, Google Cloud, and Gemini.",
-    image: "src/projectPics/medHelper.png",
-    tags: ["React", "Google Cloud", "Gemini AI"],
-    demoUrl: "#",
-    githubUrl: "#",
-  },
-  {
-    id: 2,
-    title: "Light Controlled Theremin Instrument",
-    description:
-      "Real-time Theremin system on an STM32L4 microcontroller, integrating a photoresistor-driven 12-bit ADC pipeline with DAC-based audio synthesis",
-    image: "src/projectPics/theremin.jpg",
-    tags: ["STM32 MCU", "ADC/DAC", "C"],
-    demoUrl: "#",
-    githubUrl: "#",
-  },
-  {
-    id: 3,
-    title: "Smart Bike Light System",
-    description:
-      "Programmed STM32 firmware to implement auto-canceling turn signals using gyroscope",
-    image: "src/projectPics/bikr.jpg",
-    tags: ["STM32 MCU", "I2C", "C"],
-    demoUrl: "#",
-    githubUrl: "#",
-  },
+  { title: "MediHelper", meta: "REACT / GOOGLE CLOUD / GEMINI", description: "A healthcare accessibility application designed to make medical information easier to understand and act on.", image: medHelper },
+  { title: "Light-Controlled Theremin", meta: "STM32L4 / ADC / DAC / C", description: "A real-time instrument translating photoresistor input through a 12-bit ADC pipeline into synthesized audio.", image: theremin },
+  { title: "Smart Bike Light", meta: "STM32 / I²C / GYROSCOPE / C", description: "Embedded firmware for an automatic turn-signal system that detects motion and cancels signals after a turn.", image: bikeLight },
 ];
 
-export const ProjectsSection = () => {
-  return (
-    <section id="projects" className="py-24 px-4 relative">
-      <div className="container mx-auto max-w-5xl">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          {" "}
-          Featured <span className="text-primary"> Projects </span>
-        </h2>
-
-        <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-          Here are some of my recent projects. Each project was carefully
-          crafted with attention to detail, performance, and user experience.
-        </p>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, key) => (
-            <div
-              key={key}
-              className="group bg-card rounded-lg overflow-hidden shadow-xs card-hover"
-            >
-              <div className="h-48 overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-              </div>
-
-              <div className="p-6">
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tags.map((tag) => (
-                    <span className="px-2 py-1 text-xs font-medium border rounded-full bg-secondary text-secondary-foreground">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                <h3 className="text-xl font-semibold mb-1"> {project.title}</h3>
-                <p className="text-muted-foreground text-sm mb-4">
-                  {project.description}
-                </p>
-                <div className="flex justify-between items-center">
-                  <div className="flex space-x-3">
-                    <a
-                      href={project.demoUrl}
-                      target="_blank"
-                      className="text-foreground/80 hover:text-primary transition-colors duration-300"
-                    >
-                      <ExternalLink size={20} />
-                    </a>
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      className="text-foreground/80 hover:text-primary transition-colors duration-300"
-                    >
-                      <Github size={20} />
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="text-center mt-12">
-          <a
-            className="cosmic-button w-fit flex items-center mx-auto gap-2"
-            target="_blank"
-            href="https://github.com/JasonG77"
-          >
-            Check My Github <ArrowRight size={16} />
-          </a>
-        </div>
+export const ProjectsSection = () => (
+  <section id="projects" className="archive-section px-4 py-24">
+    <div className="container max-w-5xl mx-auto">
+      <div className="archive-entry project-heading"><p className="archive-number">05</p><div><p className="archive-label">SELECTED PROJECTS</p><h2>Built work</h2></div></div>
+      <div className="project-list">
+        {projects.map((project, index) => (
+          <article key={project.title}>
+            <div className="project-copy"><span>{String(index + 1).padStart(2, "0")}</span><h3>{project.title}</h3><p className="archive-meta">{project.meta}</p><p>{project.description}</p><a href="https://github.com/JasonG77" target="_blank" rel="noreferrer">VIEW PROJECT →</a></div>
+            <img src={project.image} alt={`Preview of ${project.title}`} />
+          </article>
+        ))}
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);

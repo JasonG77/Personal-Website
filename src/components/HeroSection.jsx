@@ -1,41 +1,147 @@
-import { ArrowDown } from "lucide-react";
+import { useCallback, useRef, useState } from "react";
+import { CornerDownRight, SkipBack, SkipForward } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+
+const archiveItems = [
+  { label: "About", href: "/about" },
+  { label: "Projects", href: "/projects" },
+  { label: "Contact", href: "/contact" },
+  { label: "Resume", href: "/contact" },
+];
 
 export const HeroSection = () => {
+  const [selected, setSelected] = useState(0);
+  const [hovered, setHovered] = useState(null);
+  const dragRef = useRef(null);
+  const navigate = useNavigate();
+
+  const moveSelection = useCallback((direction) => {
+    setSelected((value) => (
+      value + direction + archiveItems.length
+    ) % archiveItems.length);
+  }, []);
+
+  const openSelection = useCallback(() => {
+    navigate(archiveItems[selected].href);
+  }, [navigate, selected]);
+
+  const handleKeyDown = (event) => {
+    if (["ArrowDown", "ArrowRight"].includes(event.key)) {
+      event.preventDefault();
+      moveSelection(1);
+    } else if (["ArrowUp", "ArrowLeft"].includes(event.key)) {
+      event.preventDefault();
+      moveSelection(-1);
+    } else if (event.key === "Enter") {
+      event.preventDefault();
+      openSelection();
+    } else if (event.key === "Escape") {
+      event.preventDefault();
+      navigate("/");
+    }
+  };
+
+  const handleWheel = (event) => {
+    event.preventDefault();
+    moveSelection(event.deltaY > 0 ? 1 : -1);
+  };
+
+  const handlePointerMove = (event) => {
+    if (!dragRef.current) return;
+    const angle = Math.atan2(
+      event.clientY - dragRef.current.y,
+      event.clientX - dragRef.current.x
+    );
+    if (Math.abs(angle - dragRef.current.angle) > 0.32) {
+      moveSelection(angle > dragRef.current.angle ? 1 : -1);
+      dragRef.current.angle = angle;
+    }
+  };
+
+  const handlePointerDown = (event) => {
+    if (event.target.closest("button, input")) return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    dragRef.current = {
+      x: rect.left + rect.width / 2,
+      y: rect.top + rect.height / 2,
+      angle: Math.atan2(
+        event.clientY - (rect.top + rect.height / 2),
+        event.clientX - (rect.left + rect.width / 2)
+      ),
+    };
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+
+  const handlePointerEnd = (event) => {
+    dragRef.current = null;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+  };
+
   return (
-    <section
-      id="hero"
-      className="relative min-h-screen flex flex-col items-center justify-center px-4"
-    >
-      <div className="container max-w-4xl mx-auto text-center z-10">
-        <div className="space-y-6">
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
-            <span className="opacity-0 animate-fade-in"> Hi, My name is</span>
-            <span className="text-primary opacity-0 animate-fade-in-delay-1">
-              {" "}
-              Jason
-            </span>
-            <span className="text-gradient ml-2 opacity-0 animate-fade-in-delay-2">
-              {" "}
-              Gutierrez
-            </span>
-          </h1>
+    <section id="hero" className="minimal-hero" aria-labelledby="identity-title">
+      <a className="personal-mark" href="#hero" aria-label="Jason Gutierrez home">JG</a>
+      <div className="identity" id="identity-title">
+        <strong>JASON GUTIERREZ</strong>
+        <span>STANFORD ELECTRICAL ENGINEERING</span>
+        <span>PERSONAL ARCHIVE / 2026</span>
+        <em>hardware + software for social good</em>
+      </div>
+      <span className="tape-accent tape-one" aria-hidden="true" />
+      <span className="sketch-note" aria-hidden="true">built by hand ↘</span>
 
-          <p className="text-lg md:text-xl text-muted-foreground max-2-2xl mx-auto opacity-0 animate-fade-in-delay-3">
-            I am a first-generation student at Stanford University. I love to build projects that combine Computer Science and Electrical Engineering through embedded systems and effective software to create solutions for social good.
-          </p>
-
-          <div className="pt-4 opacity-0 animate-fade-in-delay-4">
-            <a href="#projects" className="cosmic-button">
-              View My Work
-            </a>
+      <div className="mp3-player" onKeyDown={handleKeyDown} onWheel={handleWheel}>
+        <div className="player-screen" aria-live="polite">
+          <div className="screen-status">
+            <span>JG</span>
+            <strong>PERSONAL ARCHIVE</strong>
+            <span>▮▮▮</span>
           </div>
+          <ul className="archive-list archive-list-full" onMouseLeave={() => setHovered(null)}>
+            {archiveItems.map((item, index) => (
+              <li
+                key={item.label}
+                className={hovered === null && selected === index ? "selected" : ""}
+                onMouseEnter={() => setHovered(index)}
+              >
+                <button onClick={() => {
+                  setSelected(index);
+                  navigate(item.href);
+                }}>
+                  <span>{item.label}</span><b>›</b>
+                </button>
+              </li>
+            ))}
+          </ul>
+          <p className="screen-help">SCROLL WHEEL · SELECT TO OPEN</p>
+        </div>
+
+        <div
+          className="soft-wheel"
+          role="group"
+          aria-label="Portfolio player controls"
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerEnd}
+          onPointerCancel={handlePointerEnd}
+        >
+          <button className="menu-control" onClick={() => navigate("/")} aria-label="Return home">MENU</button>
+          <button className="previous-control" onClick={() => moveSelection(-1)} aria-label="Previous archive item"><SkipBack /></button>
+          <button className="next-control" onClick={() => moveSelection(1)} aria-label="Next archive item"><SkipForward /></button>
+          <button className="play-control" onClick={openSelection} aria-label={`Open ${archiveItems[selected].label}`}><CornerDownRight /></button>
+          <button className="select-control" onClick={openSelection} aria-label={`Open ${archiveItems[selected].label}`} />
         </div>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-bounce">
-        <span className="text-sm text-muted-foreground mb-2"> Scroll </span>
-        <ArrowDown className="h-5 w-5 text-primary" />
-      </div>
+      <button className="edge-link edge-about" onClick={() => navigate("/about")}>ABOUT</button>
+      <button className="edge-link edge-enter" onClick={() => {
+        setSelected(1);
+        navigate("/projects");
+      }}>ENTER</button>
+      <nav className="sr-only" aria-label="Text portfolio navigation">
+        {archiveItems.map((item) => <Link key={item.label} to={item.href}>{item.label}</Link>)}
+      </nav>
     </section>
   );
 };

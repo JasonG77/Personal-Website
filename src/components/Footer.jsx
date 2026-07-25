@@ -1,4 +1,5 @@
 import { ArrowUp } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export const Footer = () => {
   return (
@@ -6,14 +7,15 @@ export const Footer = () => {
       {" "}
       <p className="text-sm text-muted-foreground">
         {" "}
-        &copy; {new Date().getFullYear()} Pedrotech.co. All rights reserved.
+        &copy; {new Date().getFullYear()} Jason Gutierrez. Built with intention.
       </p>
-      <a
-        href="#hero"
+      <Link
+        to="/"
         className="p-2 rounded-full bg-primary/10 hover:bg-primary/20 text-primary transition-colors"
+        aria-label="Return to player"
       >
         <ArrowUp size={20} />
-      </a>
+      </Link>
     </footer>
   );
 };
