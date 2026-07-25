@@ -1,21 +1,19 @@
 import { useCallback, useRef, useState } from "react";
 import { CornerDownRight, SkipBack, SkipForward } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 
 const archiveItems = [
-  { label: "About", href: "#about" },
-  { label: "Projects", href: "#projects" },
-  { label: "Contact", href: "#contact" },
-  { label: "Resume", href: "#contact" },
+  { label: "About", href: "/about" },
+  { label: "Projects", href: "/projects" },
+  { label: "Contact", href: "/contact" },
+  { label: "Resume", href: "/contact" },
 ];
-
-const scrollTo = (href) => {
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  document.querySelector(href)?.scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
-};
 
 export const HeroSection = () => {
   const [selected, setSelected] = useState(0);
+  const [hovered, setHovered] = useState(null);
   const dragRef = useRef(null);
+  const navigate = useNavigate();
 
   const moveSelection = useCallback((direction) => {
     setSelected((value) => (
@@ -24,8 +22,8 @@ export const HeroSection = () => {
   }, []);
 
   const openSelection = useCallback(() => {
-    scrollTo(archiveItems[selected].href);
-  }, [selected]);
+    navigate(archiveItems[selected].href);
+  }, [navigate, selected]);
 
   const handleKeyDown = (event) => {
     if (["ArrowDown", "ArrowRight"].includes(event.key)) {
@@ -39,7 +37,7 @@ export const HeroSection = () => {
       openSelection();
     } else if (event.key === "Escape") {
       event.preventDefault();
-      scrollTo("#hero");
+      navigate("/");
     }
   };
 
@@ -100,12 +98,16 @@ export const HeroSection = () => {
             <strong>PERSONAL ARCHIVE</strong>
             <span>▮▮▮</span>
           </div>
-          <ul className="archive-list archive-list-full">
+          <ul className="archive-list archive-list-full" onMouseLeave={() => setHovered(null)}>
             {archiveItems.map((item, index) => (
-              <li key={item.label} className={selected === index ? "selected" : ""}>
+              <li
+                key={item.label}
+                className={hovered === null && selected === index ? "selected" : ""}
+                onMouseEnter={() => setHovered(index)}
+              >
                 <button onClick={() => {
                   setSelected(index);
-                  scrollTo(item.href);
+                  navigate(item.href);
                 }}>
                   <span>{item.label}</span><b>›</b>
                 </button>
@@ -124,7 +126,7 @@ export const HeroSection = () => {
           onPointerUp={handlePointerEnd}
           onPointerCancel={handlePointerEnd}
         >
-          <button className="menu-control" onClick={() => scrollTo("#hero")} aria-label="Return home">MENU</button>
+          <button className="menu-control" onClick={() => navigate("/")} aria-label="Return home">MENU</button>
           <button className="previous-control" onClick={() => moveSelection(-1)} aria-label="Previous archive item"><SkipBack /></button>
           <button className="next-control" onClick={() => moveSelection(1)} aria-label="Next archive item"><SkipForward /></button>
           <button className="play-control" onClick={openSelection} aria-label={`Open ${archiveItems[selected].label}`}><CornerDownRight /></button>
@@ -132,13 +134,13 @@ export const HeroSection = () => {
         </div>
       </div>
 
-      <button className="edge-link edge-about" onClick={() => scrollTo("#about")}>ABOUT</button>
+      <button className="edge-link edge-about" onClick={() => navigate("/about")}>ABOUT</button>
       <button className="edge-link edge-enter" onClick={() => {
         setSelected(1);
-        scrollTo("#projects");
+        navigate("/projects");
       }}>ENTER</button>
       <nav className="sr-only" aria-label="Text portfolio navigation">
-        {archiveItems.map((item) => <a key={item.label} href={item.href}>{item.label}</a>)}
+        {archiveItems.map((item) => <Link key={item.label} to={item.href}>{item.label}</Link>)}
       </nav>
     </section>
   );

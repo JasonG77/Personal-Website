@@ -1,12 +1,13 @@
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 
 const navItems = [
-  { name: "Home", href: "#hero" },
-  { name: "About", href: "#about" },
-  { name: "Projects", href: "#projects" },
-  { name: "Contact", href: "#contact" },
+  { name: "Home", href: "/" },
+  { name: "About", href: "/about" },
+  { name: "Projects", href: "/projects" },
+  { name: "Contact", href: "/contact" },
 ];
 
 export const Navbar = () => {
@@ -18,23 +19,23 @@ export const Navbar = () => {
       )}
     >
       <div className="container flex items-center justify-between">
-        <a
+        <NavLink
           className="text-xl font-bold text-primary flex items-center"
-          href="#hero"
+          to="/"
         >
           <span className="relative z-10">JG / PORTFOLIO</span>
-        </a>
+        </NavLink>
 
         {/* desktop nav */}
         <div className="hidden md:flex space-x-8">
           {navItems.map((item, key) => (
-            <a
+            <NavLink
               key={key}
-              href={item.href}
-              className="text-foreground/80 hover:text-primary transition-colors duration-300"
+              to={item.href}
+              className={({ isActive }) => cn("text-foreground/80 hover:text-primary transition-colors duration-300", isActive && "nav-active")}
             >
               {item.name}
-            </a>
+            </NavLink>
           ))}
         </div>
 
@@ -59,14 +60,14 @@ export const Navbar = () => {
         >
           <div className="flex flex-col space-y-8 text-xl">
             {navItems.map((item, key) => (
-              <a
+              <NavLink
                 key={key}
-                href={item.href}
-                className="text-foreground/80 hover:text-primary transition-colors duration-300"
+                to={item.href}
+                className={({ isActive }) => cn("text-foreground/80 hover:text-primary transition-colors duration-300", isActive && "nav-active")}
                 onClick={() => setIsMenuOpen(false)}
               >
                 {item.name}
-              </a>
+              </NavLink>
             ))}
           </div>
         </div>
