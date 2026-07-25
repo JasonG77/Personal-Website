@@ -1,6 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { Pause, Play, SkipBack, SkipForward, Volume2, VolumeX } from "lucide-react";
-import { tracks } from "../data/tracks";
+import { useCallback, useRef, useState } from "react";
+import { CornerDownRight, SkipBack, SkipForward } from "lucide-react";
 
 const archiveItems = [
   { label: "About", href: "#about" },
@@ -15,108 +14,33 @@ const scrollTo = (href) => {
 };
 
 export const HeroSection = () => {
-  const [mode, setMode] = useState("music");
   const [selected, setSelected] = useState(0);
-  const [trackIndex, setTrackIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolume] = useState(0.36);
-  const [isMuted, setIsMuted] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const audioRef = useRef(null);
   const dragRef = useRef(null);
 
-  const stopAudio = useCallback(() => {
-    if (!audioRef.current) return;
-    if (audioRef.current.kind === "file") {
-      audioRef.current.audio.pause();
-      audioRef.current.audio.src = "";
-    } else {
-      window.clearInterval(audioRef.current.timer);
-      audioRef.current.context.close();
-    }
-    audioRef.current = null;
-  }, []);
-
-  const startAudio = useCallback((index = trackIndex) => {
-    if (audioRef.current) return;
-    const track = tracks[index];
-    if (track.src) {
-      const audio = new Audio(track.src);
-      audio.volume = isMuted ? 0 : volume;
-      audio.addEventListener("timeupdate", () => {
-        if (audio.duration) setProgress((audio.currentTime / audio.duration) * 100);
-      });
-      audio.addEventListener("ended", () => setProgress(0));
-      audio.play();
-      audioRef.current = { kind: "file", audio };
-      return;
-    }
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    if (!AudioContext) return;
-    const context = new AudioContext();
-    const master = context.createGain();
-    master.gain.value = isMuted ? 0 : volume;
-    master.connect(context.destination);
-    let step = 0;
-    const playNote = () => {
-      const now = context.currentTime;
-      const oscillator = context.createOscillator();
-      const gain = context.createGain();
-      oscillator.type = "triangle";
-      oscillator.frequency.value = track.demoNotes[step % track.demoNotes.length];
-      gain.gain.setValueAtTime(0.0001, now);
-      gain.gain.exponentialRampToValueAtTime(0.11, now + 0.025);
-      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.34);
-      oscillator.connect(gain); gain.connect(master);
-      oscillator.start(now); oscillator.stop(now + 0.36);
-      step += 1;
-      setProgress((value) => (value + 4) % 101);
-    };
-    playNote();
-    audioRef.current = { kind: "demo", context, master, timer: window.setInterval(playNote, 380) };
-  }, [isMuted, trackIndex, volume]);
-
-  const togglePlayback = useCallback(() => {
-    if (isPlaying) { stopAudio(); setIsPlaying(false); }
-    else { startAudio(); setIsPlaying(true); }
-  }, [isPlaying, startAudio, stopAudio]);
-
-  const changeTrack = useCallback((direction) => {
-    const wasPlaying = Boolean(audioRef.current);
-    const nextIndex = (trackIndex + direction + tracks.length) % tracks.length;
-    stopAudio();
-    setTrackIndex(nextIndex);
-    setProgress(0);
-    if (wasPlaying) window.setTimeout(() => startAudio(nextIndex), 0);
-  }, [startAudio, stopAudio, trackIndex]);
-
   const moveSelection = useCallback((direction) => {
-    if (mode === "music") changeTrack(direction);
-    else setSelected((value) => (value + direction + archiveItems.length) % archiveItems.length);
-  }, [changeTrack, mode]);
+    setSelected((value) => (
+      value + direction + archiveItems.length
+    ) % archiveItems.length);
+  }, []);
 
   const openSelection = useCallback(() => {
-    if (mode === "music") togglePlayback();
-    else scrollTo(archiveItems[selected].href);
-  }, [mode, selected, togglePlayback]);
-
-  const showPreviousScreen = useCallback(() => {
-    setMode((value) => value === "music" ? "archive" : "music");
-  }, []);
-
-  useEffect(() => {
-    if (!audioRef.current) return;
-    if (audioRef.current.kind === "file") audioRef.current.audio.volume = isMuted ? 0 : volume;
-    else audioRef.current.master.gain.value = isMuted ? 0 : volume;
-  }, [isMuted, volume]);
-  useEffect(() => () => stopAudio(), [stopAudio]);
+    scrollTo(archiveItems[selected].href);
+  }, [selected]);
 
   const handleKeyDown = (event) => {
-    if (["ArrowDown", "ArrowRight"].includes(event.key)) { event.preventDefault(); moveSelection(1); }
-    else if (["ArrowUp", "ArrowLeft"].includes(event.key)) { event.preventDefault(); moveSelection(-1); }
-    else if (event.key === "Enter") { event.preventDefault(); openSelection(); }
-    else if (event.key === " ") { event.preventDefault(); togglePlayback(); }
-    else if (event.key === "Escape") { event.preventDefault(); showPreviousScreen(); }
+    if (["ArrowDown", "ArrowRight"].includes(event.key)) {
+      event.preventDefault();
+      moveSelection(1);
+    } else if (["ArrowUp", "ArrowLeft"].includes(event.key)) {
+      event.preventDefault();
+      moveSelection(-1);
+    } else if (event.key === "Enter") {
+      event.preventDefault();
+      openSelection();
+    } else if (event.key === "Escape") {
+      event.preventDefault();
+      scrollTo("#hero");
+    }
   };
 
   const handleWheel = (event) => {
@@ -126,7 +50,10 @@ export const HeroSection = () => {
 
   const handlePointerMove = (event) => {
     if (!dragRef.current) return;
-    const angle = Math.atan2(event.clientY - dragRef.current.y, event.clientX - dragRef.current.x);
+    const angle = Math.atan2(
+      event.clientY - dragRef.current.y,
+      event.clientX - dragRef.current.x
+    );
     if (Math.abs(angle - dragRef.current.angle) > 0.32) {
       moveSelection(angle > dragRef.current.angle ? 1 : -1);
       dragRef.current.angle = angle;
@@ -168,44 +95,48 @@ export const HeroSection = () => {
 
       <div className="mp3-player" onKeyDown={handleKeyDown} onWheel={handleWheel}>
         <div className="player-screen" aria-live="polite">
-          <div className="screen-status"><span>{isPlaying ? "Ⅱ" : "■"}</span><strong>{mode === "music" ? "MY SOUNDS" : "PERSONAL ARCHIVE"}</strong><span>▮▮▮</span></div>
-          {mode === "music" ? (
-            <div className="music-screen">
-              <ul className="track-list">
-                {tracks.map((track, index) => <li key={track.title} className={trackIndex === index ? "selected" : ""}><button onClick={() => { if (index !== trackIndex) changeTrack(index - trackIndex); }}>{track.title}<b>›</b></button></li>)}
-              </ul>
-              <div className="now-playing"><span>{isPlaying ? "▶" : "■"} {tracks[trackIndex].title} — {tracks[trackIndex].artist}</span><div className="screen-progress"><i style={{ width: `${progress}%` }} /></div></div>
-            </div>
-          ) : (
-            <ul className="archive-list">
-              {archiveItems.map((item, index) => (
-                <li key={item.label} className={selected === index ? "selected" : ""}>
-                  <button onClick={() => { setSelected(index); scrollTo(item.href); }}><span>{item.label}</span><b>›</b></button>
-                </li>
-              ))}
-            </ul>
-          )}
+          <div className="screen-status">
+            <span>JG</span>
+            <strong>PERSONAL ARCHIVE</strong>
+            <span>▮▮▮</span>
+          </div>
+          <ul className="archive-list archive-list-full">
+            {archiveItems.map((item, index) => (
+              <li key={item.label} className={selected === index ? "selected" : ""}>
+                <button onClick={() => {
+                  setSelected(index);
+                  scrollTo(item.href);
+                }}>
+                  <span>{item.label}</span><b>›</b>
+                </button>
+              </li>
+            ))}
+          </ul>
+          <p className="screen-help">SCROLL WHEEL · SELECT TO OPEN</p>
         </div>
 
-        <div className="soft-wheel" role="group" aria-label="Music player controls"
+        <div
+          className="soft-wheel"
+          role="group"
+          aria-label="Portfolio player controls"
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerEnd}
-          onPointerCancel={handlePointerEnd}>
-          <button className="menu-control" onClick={showPreviousScreen} aria-label="Switch Music and Archive screens">MENU</button>
-          <button className="previous-control" onClick={() => moveSelection(-1)} aria-label="Previous"><SkipBack /></button>
-          <button className="next-control" onClick={() => moveSelection(1)} aria-label="Next"><SkipForward /></button>
-          <button className="play-control" onClick={togglePlayback} aria-label={isPlaying ? "Pause original music" : "Play original music"}>{isPlaying ? <Pause /> : <Play />}</button>
-          <button className="select-control" onClick={openSelection} aria-label={mode === "music" ? "Play selected track" : `Open ${archiveItems[selected].label}`} />
-        </div>
-        <div className="quiet-volume">
-          <button onClick={() => setIsMuted((value) => !value)} aria-label={isMuted ? "Unmute" : "Mute"}>{isMuted ? <VolumeX /> : <Volume2 />}</button>
-          <input type="range" min="0" max="1" step=".05" value={volume} onChange={(event) => setVolume(Number(event.target.value))} aria-label="Volume" />
+          onPointerCancel={handlePointerEnd}
+        >
+          <button className="menu-control" onClick={() => scrollTo("#hero")} aria-label="Return home">MENU</button>
+          <button className="previous-control" onClick={() => moveSelection(-1)} aria-label="Previous archive item"><SkipBack /></button>
+          <button className="next-control" onClick={() => moveSelection(1)} aria-label="Next archive item"><SkipForward /></button>
+          <button className="play-control" onClick={openSelection} aria-label={`Open ${archiveItems[selected].label}`}><CornerDownRight /></button>
+          <button className="select-control" onClick={openSelection} aria-label={`Open ${archiveItems[selected].label}`} />
         </div>
       </div>
 
       <button className="edge-link edge-about" onClick={() => scrollTo("#about")}>ABOUT</button>
-      <button className="edge-link edge-enter" onClick={() => { setMode("archive"); setSelected(1); }}>ENTER</button>
+      <button className="edge-link edge-enter" onClick={() => {
+        setSelected(1);
+        scrollTo("#projects");
+      }}>ENTER</button>
       <nav className="sr-only" aria-label="Text portfolio navigation">
         {archiveItems.map((item) => <a key={item.label} href={item.href}>{item.label}</a>)}
       </nav>
