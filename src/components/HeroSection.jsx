@@ -133,6 +133,27 @@ export const HeroSection = () => {
     }
   };
 
+  const handlePointerDown = (event) => {
+    if (event.target.closest("button, input")) return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    dragRef.current = {
+      x: rect.left + rect.width / 2,
+      y: rect.top + rect.height / 2,
+      angle: Math.atan2(
+        event.clientY - (rect.top + rect.height / 2),
+        event.clientX - (rect.left + rect.width / 2)
+      ),
+    };
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+
+  const handlePointerEnd = (event) => {
+    dragRef.current = null;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+  };
+
   return (
     <section id="hero" className="minimal-hero" aria-labelledby="identity-title">
       <a className="personal-mark" href="#hero" aria-label="Jason Gutierrez home">JG</a>
@@ -167,8 +188,10 @@ export const HeroSection = () => {
         </div>
 
         <div className="soft-wheel" role="group" aria-label="Music player controls"
-          onPointerDown={(event) => { const rect = event.currentTarget.getBoundingClientRect(); dragRef.current = { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2, angle: Math.atan2(event.clientY - (rect.top + rect.height / 2), event.clientX - (rect.left + rect.width / 2)) }; event.currentTarget.setPointerCapture(event.pointerId); }}
-          onPointerMove={handlePointerMove} onPointerUp={() => { dragRef.current = null; }}>
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerEnd}
+          onPointerCancel={handlePointerEnd}>
           <button className="menu-control" onClick={showPreviousScreen} aria-label="Switch Music and Archive screens">MENU</button>
           <button className="previous-control" onClick={() => moveSelection(-1)} aria-label="Previous"><SkipBack /></button>
           <button className="next-control" onClick={() => moveSelection(1)} aria-label="Next"><SkipForward /></button>
