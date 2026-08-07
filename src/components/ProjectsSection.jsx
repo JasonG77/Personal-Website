@@ -10,20 +10,20 @@ import solderingVideo from "../projectPics/BikeSolderingVideo.m4v?url";
 const projects = [
   {
     title: "MediHelper",
-    meta: "REACT / GOOGLE CLOUD / GEMINI",
-    description: "A healthcare accessibility application designed to make medical information easier to understand and act on.",
+    meta: "REACT / GOOGLE CLOUD / OPENAI / VERCEL",
+    description: "Designed and shipped a healthcare accessibility platform that turns complex insurance and care workflows into clear next steps. Built cloud-powered NLP tools for insurance interpretation, appointment scheduling, transportation coordination, and provider discovery.",
     media: [{ type: "image", src: medHelper, alt: "MediHelper application interface" }],
   },
   {
-    title: "Light-Controlled Theremin",
-    meta: "STM32L4 / ADC / DAC / C",
-    description: "A real-time instrument translating photoresistor input through a 12-bit ADC pipeline into synthesized audio.",
-    media: [{ type: "image", src: theremin, alt: "Light-controlled theremin prototype" }],
+    title: "FPGA Music Synthesizer",
+    meta: "FPGA / VERILOG HDL / RTL / VIVADO",
+    description: "Built and verified a multi-voice FPGA synthesizer with chord generation, harmonic enrichment, stereo panning, FSM-based song sequencing, and real-time audio mixing. Closed timing on a 100 MHz pipelined datapath through waveform-driven debugging, register insertion, and critical-path reduction.",
+    media: [{ type: "image", src: theremin, alt: "FPGA music synthesizer hardware prototype" }],
   },
   {
-    title: "Smart Bike Light",
-    meta: "STM32 / I²C / GYROSCOPE / C",
-    description: "Embedded firmware for an automatic turn-signal system that detects motion and cancels signals after a turn.",
+    title: "Smart Bike Light System",
+    meta: "STM32 / I²C / ADC / PWM / UART / BLE / C",
+    description: "Engineered an STM32-based bike signaling system integrating IMU sensing, ambient-light detection, PWM LED control, and BLE telemetry. Developed interrupt-driven firmware that identifies braking from filtered acceleration data and tracks gyroscope yaw to auto-cancel turn signals under concurrent peripheral workloads.",
     media: [
       { type: "image", src: signalButtons, alt: "Smart bike light turn-signal buttons" },
       { type: "image", src: bike, alt: "Bike equipped with the smart light system" },
