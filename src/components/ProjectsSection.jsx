@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ActionButton, ArchiveHeader, ContentCard, MetaLabel, PageContainer } from "./system/DesignSystem";
 import medHelper from "../projectPics/medHelper.png";
 import theremin from "../projectPics/theremin.jpg";
 import signalButtons from "../projectPics/SignalButtons.JPG";
@@ -88,41 +89,30 @@ const ProjectMedia = ({ project }) => {
 };
 
 export const ProjectsSection = () => {
-  const articlesRef = useRef([]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.style.animation = "none";
-            setTimeout(() => { entry.target.style.animation = ""; }, 10);
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-
-    articlesRef.current.forEach((article) => {
-      if (article) observer.observe(article);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section id="projects" className="archive-section px-4 py-24">
-      <div className="container max-w-5xl mx-auto">
-        <div className="archive-entry project-heading"><p className="archive-number">05</p><div><p className="archive-label">SELECTED PROJECTS</p><h2>Built work</h2></div></div>
+    <section id="projects" className="archive-section">
+      <PageContainer>
+        <ArchiveHeader
+          number="05"
+          label="SELECTED PROJECTS"
+          title="Built work"
+          intro="A focused set of projects showing how I use hardware and software to solve practical problems."
+        />
         <div className="project-list">
           {projects.map((project, index) => (
-            <article key={project.title} ref={(element) => { articlesRef.current[index] = element; }} style={{ "--index": index }}>
-              <div className="project-copy"><span>{String(index + 1).padStart(2, "0")}</span><h3>{project.title}</h3><p className="archive-meta">{project.meta}</p><p>{project.description}</p><a href="https://github.com/JasonG77" target="_blank" rel="noreferrer">VIEW PROJECT →</a></div>
+            <ContentCard key={project.title} className="project-card">
+              <div className="project-copy">
+                <MetaLabel>{String(index + 1).padStart(2, "0")} / PROJECT</MetaLabel>
+                <h3>{project.title}</h3>
+                <MetaLabel as="p" className="project-meta">{project.meta}</MetaLabel>
+                <p>{project.description}</p>
+                <ActionButton href="https://github.com/JasonG77" target="_blank" rel="noreferrer" variant="secondary">View project <ArrowUpRight aria-hidden="true" /></ActionButton>
+              </div>
               <ProjectMedia project={project} />
-            </article>
+            </ContentCard>
           ))}
         </div>
-      </div>
+      </PageContainer>
     </section>
   );
 };

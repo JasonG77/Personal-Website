@@ -1,13 +1,8 @@
-import { Navbar } from "../components/Navbar";
 import { ProjectsSection } from "../components/ProjectsSection";
-import { Footer } from "../components/Footer";
+import { PageShell } from "../components/system/PageShell";
 
 export const ProjectsPage = () => (
-  <div className="page-shell">
-    <Navbar />
-    <main className="inner-page">
-      <ProjectsSection />
-    </main>
-    <Footer />
-  </div>
+  <PageShell>
+    <ProjectsSection />
+  </PageShell>
 );

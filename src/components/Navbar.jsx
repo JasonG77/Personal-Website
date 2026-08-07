@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { PageContainer } from "./system/DesignSystem";
 
 const navItems = [
   { name: "Home", href: "/" },
@@ -18,7 +19,7 @@ export const Navbar = () => {
         "fixed w-full z-40 py-3 transition-all duration-300 portfolio-nav nav-visible"
       )}
     >
-      <div className="container flex items-center justify-between">
+      <PageContainer className="portfolio-nav-inner">
         <NavLink
           className="text-xl font-bold text-primary flex items-center"
           to="/"
@@ -71,7 +72,7 @@ export const Navbar = () => {
             ))}
           </div>
         </div>
-      </div>
+      </PageContainer>
     </nav>
   );
 };

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { ArchiveHeader, ContentCard, MetaLabel, PageContainer } from "./system/DesignSystem";
 
 const groups = [
   ["DIGITAL HARDWARE", "FPGA design, Verilog, digital logic, validation"],
@@ -6,52 +6,23 @@ const groups = [
   ["SOFTWARE", "React, JavaScript, Python, Git, web applications"],
 ];
 
-export const SkillsSection = () => {
-  const skillDivsRef = useRef([]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.style.animation = "none";
-            setTimeout(() => {
-              entry.target.style.animation = "";
-            }, 10);
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-
-    skillDivsRef.current.forEach((div) => {
-      if (div) observer.observe(div);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <section id="skills" className="archive-section px-4 py-24">
-      <div className="container max-w-5xl mx-auto archive-entry">
-        <p className="archive-number">04</p>
-        <div className="w-full">
-          <p className="archive-label">TOOLS &amp; PRACTICE</p>
-          <h2>Technical range</h2>
-          <div className="skill-lines">
-            {groups.map(([title, detail], index) => (
-              <div
-                key={title}
-                ref={(el) => (skillDivsRef.current[index] = el)}
-                style={{ "--index": index }}
-              >
-                <strong>{title}</strong>
-                <span>{detail}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+export const SkillsSection = () => (
+  <section id="skills" className="archive-section">
+    <PageContainer>
+      <ArchiveHeader
+        number="04"
+        label="TOOLS & PRACTICE"
+        title="Technical range"
+        intro="A hardware-first toolkit for taking ideas from digital logic and firmware through usable software."
+      />
+      <div className="skill-card-grid">
+        {groups.map(([title, detail]) => (
+          <ContentCard key={title} className="skill-card">
+            <MetaLabel>{title}</MetaLabel>
+            <p>{detail}</p>
+          </ContentCard>
+        ))}
       </div>
-    </section>
-  );
-};
+    </PageContainer>
+  </section>
+);

@@ -1,13 +1,8 @@
-import { Navbar } from "../components/Navbar";
 import { ContactSection } from "../components/ContactSection";
-import { Footer } from "../components/Footer";
+import { PageShell } from "../components/system/PageShell";
 
 export const ContactPage = () => (
-  <div className="page-shell">
-    <Navbar />
-    <main className="inner-page">
-      <ContactSection />
-    </main>
-    <Footer />
-  </div>
+  <PageShell>
+    <ContactSection />
+  </PageShell>
 );
