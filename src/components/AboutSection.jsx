@@ -49,7 +49,7 @@ export const AboutSection = () => {
 
           <div className="about-story">
             <h2>Engineering across the physical and digital.</h2>
-            <p className="about-lede">I&apos;m Jason, a first-generation Stanford student studying electrical engineering. I like working where hardware and software meet—where code has to account for timing, sensors, signals, and the physical world.</p>
+            <p className="about-lede">I&apos;m Jason, a first-generation Stanford electrical engineering student and QuestBridge Match Scholar in the Class of 2028. I like working where hardware and software meet—where code has to account for timing, sensors, signals, and the physical world.</p>
             <p>My work spans embedded safety systems, FPGA audio design, and accessible healthcare software. Across each project, I care about careful validation, clear interfaces, and building technology that gives people more agency.</p>
 
             <blockquote>Measure carefully. Build with purpose. Make the result useful.</blockquote>
@@ -68,14 +68,14 @@ export const AboutSection = () => {
           </div>
           <div className="about-current-grid">
             <article><span>BUILDING</span><h3>Useful physical systems</h3><p>Projects that connect sensing, computation, and real-world action.</p></article>
-            <article><span>LEARNING</span><h3>Deeper hardware workflows</h3><p>FPGA design, RTL timing, embedded firmware, and dependable validation.</p></article>
+            <article><span>LEARNING</span><h3>Deeper hardware workflows</h3><p>FPGA design, RTL timing, embedded firmware, board-level design, and dependable validation.</p></article>
             <article><span>SEEKING</span><h3>An engineering team</h3><p>Opportunities in embedded systems, digital hardware, FPGA design, or hardware-software integration.</p></article>
           </div>
         </div>
 
         <div className="about-north-star">
           <span>WHY IT MATTERS</span>
-          <p>As a first-generation student, I care about widening access to education and making technical systems easier to understand and use.</p>
+          <p>As a first-generation QuestBridge Scholar, I care about widening access to education and making technical systems easier to understand and use. I stay grounded in community through the Society of Latinx Engineers, Hermanos de Stanford, Gamma Zeta Alpha, and Stanford Funbotics.</p>
         </div>
       </div>
     </section>
