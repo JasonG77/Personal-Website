@@ -11,19 +11,19 @@ const projects = [
   {
     title: "MediHelper",
     meta: "REACT / GOOGLE CLOUD / OPENAI / VERCEL",
-    description: "Designed and shipped a healthcare accessibility platform that turns complex insurance and care workflows into clear next steps. Built cloud-powered NLP tools for insurance interpretation, appointment scheduling, transportation coordination, and provider discovery.",
+    description: "Healthcare and insurance systems are difficult to navigate when information is fragmented or overly technical. MediHelper uses an accessible React interface and cloud NLP to explain coverage, find providers, and coordinate appointments and transportation in one place.",
     media: [{ type: "image", src: medHelper, alt: "MediHelper application interface" }],
   },
   {
     title: "FPGA Music Synthesizer",
     meta: "FPGA / VERILOG HDL / RTL / VIVADO",
-    description: "Built and verified a multi-voice FPGA synthesizer with chord generation, harmonic enrichment, stereo panning, FSM-based song sequencing, and real-time audio mixing. Closed timing on a 100 MHz pipelined datapath through waveform-driven debugging, register insertion, and critical-path reduction.",
+    description: "Rich, responsive audio is difficult to generate on resource-constrained digital hardware. This Verilog synthesizer produces multi-voice chords, harmonics, stereo panning, and sequenced songs through a timing-closed 100 MHz FPGA pipeline.",
     media: [{ type: "image", src: theremin, alt: "FPGA music synthesizer hardware prototype" }],
   },
   {
     title: "Smart Bike Light System",
     meta: "STM32 / I²C / ADC / PWM / UART / BLE / C",
-    description: "Engineered an STM32-based bike signaling system integrating IMU sensing, ambient-light detection, PWM LED control, and BLE telemetry. Developed interrupt-driven firmware that identifies braking from filtered acceleration data and tracks gyroscope yaw to auto-cancel turn signals under concurrent peripheral workloads.",
+    description: "Hand signals can be difficult for drivers to see, especially at night or during sudden braking. This STM32 system uses motion and ambient-light sensors to activate bright signals, detect braking, auto-cancel turns, and report status over BLE.",
     media: [
       { type: "video", src: solderingVideo, alt: "Soldering the smart bike light electronics" },
       { type: "image", src: signalButtons, alt: "Smart bike light turn-signal buttons" },

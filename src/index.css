@@ -113,7 +113,7 @@
   body {
     @apply bg-background text-foreground transition-colors duration-300;
     font-feature-settings: "rlig" 1, "calt" 1;
-    font-family: "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
   }
 }
 
@@ -134,7 +134,7 @@ body { background: var(--cream); }
 .dark .project-list article:hover .project-copy > span { color: #8ab4f8; text-shadow: 0 0 12px rgba(138, 180, 248, 0.3); }
 .dark .project-copy h3 { color: #ece6da; }
 .dark .project-list article:hover .project-copy h3 { color: #8ab4f8; text-shadow: 0 2px 8px rgba(138, 180, 248, 0.25); }
-.dark .project-copy > p:not(.archive-meta) { color: #c9c3b8; }
+.dark .project-copy > p:not(.archive-meta) { color: #d4cec3; }
 .dark .project-list article:hover .project-copy > p:not(.archive-meta) { color: #e0dbd0; }
 .dark .archive-meta { color: #8b8987; }
 .dark .project-copy a { color: #d8d2c7; border-bottom-color: #d8d2c7; }
@@ -177,8 +177,8 @@ main > section:not(#hero) { border-top: 1px solid #d8d1c7; background: var(--cre
 .project-list article { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(2rem, 5vw, 5rem); }
 .project-copy { min-width: 0; }
 .project-copy h3 { font-size: clamp(2rem, 3.5vw, 3.35rem); line-height: 1.12; letter-spacing: 0; }
-.project-copy > p:not(.archive-meta) { max-width: 580px; font-size: 1rem; line-height: 1.75; letter-spacing: .005em; }
-.project-copy .archive-meta { line-height: 1.6; letter-spacing: .06em; }
+.project-copy > p:not(.archive-meta) { max-width: 52ch; color: #504a43; font-size: 1.0625rem; line-height: 1.72; letter-spacing: 0; }
+.project-copy .archive-meta { font-size: .68rem !important; line-height: 1.7; letter-spacing: .045em; }
 .project-media-frame img { filter: saturate(.85) contrast(.99); }
 
 @media (max-height: 760px) and (min-width: 700px) { .minimal-hero { gap: .7rem; padding-top: 5.5rem; }.mp3-player { width: 350px; }.player-screen { height: 165px; }.soft-wheel { width: 215px; height: 215px; margin-top: 1rem; }.select-control { inset: 57px; } }
