@@ -25,17 +25,28 @@ const projects = [
     meta: "STM32 / I²C / ADC / PWM / UART / BLE / C",
     description: "Engineered an STM32-based bike signaling system integrating IMU sensing, ambient-light detection, PWM LED control, and BLE telemetry. Developed interrupt-driven firmware that identifies braking from filtered acceleration data and tracks gyroscope yaw to auto-cancel turn signals under concurrent peripheral workloads.",
     media: [
+      { type: "video", src: solderingVideo, alt: "Soldering the smart bike light electronics" },
       { type: "image", src: signalButtons, alt: "Smart bike light turn-signal buttons" },
       { type: "image", src: bike, alt: "Bike equipped with the smart light system" },
-      { type: "video", src: solderingVideo, alt: "Soldering the smart bike light electronics" },
     ],
   },
 ];
 
 const ProjectMedia = ({ project }) => {
   const [activeSlide, setActiveSlide] = useState(0);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(() => (
+    typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  ));
   const hasMultipleSlides = project.media.length > 1;
   const currentMedia = project.media[activeSlide];
+
+  useEffect(() => {
+    const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updateMotionPreference = () => setPrefersReducedMotion(motionPreference.matches);
+
+    motionPreference.addEventListener("change", updateMotionPreference);
+    return () => motionPreference.removeEventListener("change", updateMotionPreference);
+  }, []);
 
   const showSlide = (direction) => {
     setActiveSlide((current) => (
@@ -47,7 +58,7 @@ const ProjectMedia = ({ project }) => {
     <div className="project-media" aria-label={`${project.title} media gallery`}>
       <div className="project-media-frame">
         {currentMedia.type === "video" ? (
-          <video key={currentMedia.src} src={currentMedia.src} controls playsInline preload="metadata" aria-label={currentMedia.alt}>
+          <video key={currentMedia.src} src={currentMedia.src} autoPlay={!prefersReducedMotion} muted loop={!prefersReducedMotion} controls playsInline preload="metadata" aria-label={currentMedia.alt}>
             Your browser does not support embedded video.
           </video>
         ) : (
