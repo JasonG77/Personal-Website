@@ -49,10 +49,10 @@ export const AboutSection = () => {
 
           <div className="about-story">
             <h2>Engineering across the physical and digital.</h2>
-            <p className="about-lede">I&apos;m Jason, a first-generation Stanford electrical engineering student and QuestBridge Match Scholar in the Class of 2028. I like working where hardware and software meet—where code has to account for timing, sensors, signals, and the physical world.</p>
-            <p>My work spans embedded safety systems, FPGA audio design, and accessible healthcare software. Across each project, I care about careful validation, clear interfaces, and building technology that gives people more agency.</p>
+            <p className="about-lede">I&apos;m Jason, a first-generation Stanford student born and raised in Houston, Texas, and proudly shaped by my Guatemalan heritage.</p>
+            <p>I&apos;m drawn to the intersection of computer science and electrical engineering—especially using embedded systems and thoughtful software to solve problems that matter. Education technology is deeply personal to me because access to learning transformed my own path.</p>
 
-            <blockquote>Measure carefully. Build with purpose. Make the result useful.</blockquote>
+            <blockquote>Build technology that opens doors, not just technology that proves what is possible.</blockquote>
 
             <div className="about-actions">
               <Link className="about-cta about-cta-primary" to="/projects">Explore my work <ArrowRight aria-hidden="true" /></Link>
@@ -63,19 +63,19 @@ export const AboutSection = () => {
 
         <div className="about-current" aria-labelledby="currently-heading">
           <div className="about-current-heading">
-            <p id="currently-heading">CURRENTLY</p>
-            <span>what I&apos;m focused on now</span>
+            <p id="currently-heading">WHAT DRIVES ME</p>
+            <span>the thread through my work</span>
           </div>
           <div className="about-current-grid">
-            <article><span>BUILDING</span><h3>Useful physical systems</h3><p>Projects that connect sensing, computation, and real-world action.</p></article>
-            <article><span>LEARNING</span><h3>Deeper hardware workflows</h3><p>FPGA design, RTL timing, embedded firmware, board-level design, and dependable validation.</p></article>
-            <article><span>SEEKING</span><h3>An engineering team</h3><p>Opportunities in embedded systems, digital hardware, FPGA design, or hardware-software integration.</p></article>
+            <article><span>ROOTS</span><h3>Houston to Stanford</h3><p>My first-generation journey, my family&apos;s immigrant story, and my Guatemalan heritage shape who I build for and why access matters.</p></article>
+            <article><span>MOTIVATION</span><h3>Education changes lives</h3><p>Learning opened doors in my life, so I want to help make those opportunities easier for others to reach.</p></article>
+            <article><span>DIRECTION</span><h3>Technology for social good</h3><p>I want to combine embedded systems and software to create practical, equitable tools for real communities.</p></article>
           </div>
         </div>
 
         <div className="about-north-star">
-          <span>WHY IT MATTERS</span>
-          <p>As a first-generation QuestBridge Scholar, I care about widening access to education and making technical systems easier to understand and use. I stay grounded in community through the Society of Latinx Engineers, Hermanos de Stanford, Gamma Zeta Alpha, and Stanford Funbotics.</p>
+          <span>THE LONG-TERM GOAL</span>
+          <p>Push the boundaries of technology while creating equitable resources that let anyone access a quality education, no matter where they begin or where they live.</p>
         </div>
       </div>
     </section>

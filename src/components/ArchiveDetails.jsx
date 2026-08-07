@@ -7,8 +7,8 @@ const entries = [
     number: "02",
     label: "ACADEMICS",
     title: "Stanford University",
-    meta: "ELECTRICAL ENGINEERING / QUESTBRIDGE MATCH SCHOLAR / CLASS OF 2028",
-    body: "Coursework in Verilog-based digital systems, STM32 embedded programming, circuits, KiCad board design, and computer architecture is building the foundation I use to create dependable hardware-software systems.",
+    meta: "ELECTRICAL ENGINEERING / COMPUTER SCIENCE / CLASS OF 2028",
+    body: "At Stanford, I am exploring how computation moves from software into the physical world. That path—from digital logic and circuits to embedded code—gives me the tools to build technology around meaningful human needs.",
   },
   {
     id: "experience",
