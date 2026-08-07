@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import medHelper from "../projectPics/medHelper.png";
 import theremin from "../projectPics/theremin.jpg";
 import signalButtons from "../projectPics/SignalButtons.JPG";
-import bike from "../projectPics/bike-web.jpg";
+import bike from "../projectPics/bike.jpg";
 import solderingVideo from "../projectPics/BikeSolderingVideo.m4v?url";
 
 const projects = [
