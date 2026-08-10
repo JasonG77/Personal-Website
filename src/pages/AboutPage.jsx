@@ -1,13 +1,13 @@
 import { AboutSection } from "../components/AboutSection";
-import { AcademicExperience, AspirationsSection } from "../components/ArchiveDetails";
-import { SkillsSection } from "../components/SkillsSection";
+import { BuildingGoalsSection, EngineeringFocusSection } from "../components/ArchiveDetails";
+import { SkillsExperienceSection } from "../components/SkillsSection";
 import { PageShell } from "../components/system/PageShell";
 
 export const AboutPage = () => (
   <PageShell>
     <AboutSection />
-    <AcademicExperience />
-    <SkillsSection />
-    <AspirationsSection />
+    <SkillsExperienceSection />
+    <EngineeringFocusSection />
+    <BuildingGoalsSection />
   </PageShell>
 );

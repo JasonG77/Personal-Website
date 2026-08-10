@@ -1,20 +1,30 @@
 import { ArchiveHeader, ContentCard, MetaLabel, PageContainer } from "./system/DesignSystem";
 
 const groups = [
-  ["DIGITAL HARDWARE", "FPGA design, Verilog, digital logic, validation"],
-  ["EMBEDDED SYSTEMS", "STM32, C, ADC/DAC, I²C, sensors, firmware"],
-  ["SOFTWARE", "React, JavaScript, Python, Git, web applications"],
+  ["DIGITAL HARDWARE", "FPGA design, Verilog, digital logic, and timing-aware validation"],
+  ["EMBEDDED SYSTEMS", "STM32, C, ADC/DAC, I²C, sensors, and real-time firmware"],
+  ["SOFTWARE", "React, JavaScript, Python, Git, and accessible web applications"],
 ];
 
-export const SkillsSection = () => (
-  <section id="skills" className="archive-section">
+export const SkillsExperienceSection = () => (
+  <section id="skills-experience" className="archive-section">
     <PageContainer>
       <ArchiveHeader
-        number="04"
-        label="TOOLS & PRACTICE"
-        title="Technical range"
-        intro="A hardware-first toolkit for taking ideas from digital logic and firmware through usable software."
+        number="02"
+        label="SKILLS & EXPERIENCE"
+        title="Technical range, grounded in practice"
+        meta="ELECTRICAL ENGINEERING / COMPUTER SCIENCE / CLASS OF 2028"
+        intro="At Stanford, I am learning how computation moves from digital logic and circuits into embedded code and usable software—then applying that foundation through complete, tested projects."
       />
+
+      <ContentCard className="skills-experience-summary">
+        <MetaLabel>STANFORD UNIVERSITY</MetaLabel>
+        <div>
+          <h3>Learning by building across the stack</h3>
+          <p>My experience spans timing-closed RTL, sensor-driven firmware, board-level integration, and accessible React products. Each project strengthens the same habit: understand the system, test assumptions, and iterate from evidence.</p>
+        </div>
+      </ContentCard>
+
       <div className="skill-card-grid">
         {groups.map(([title, detail]) => (
           <ContentCard key={title} className="skill-card">

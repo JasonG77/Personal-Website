@@ -574,6 +574,21 @@ main > section:not(#hero) { border-top: 1px solid #d8d1c7; background: var(--cre
 .skill-card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
 .skill-card { min-height: 150px; padding: 1.35rem; }
 .skill-card p { margin-top: 1.25rem; color: var(--ds-muted); font-size: .98rem; line-height: 1.65; }
+.skills-experience-summary {
+  display: grid;
+  grid-template-columns: minmax(140px, .35fr) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+  margin-bottom: 1rem;
+  padding: 1.35rem;
+}
+.skills-experience-summary h3,
+.detail-card h3 { margin: 0 0 .7rem; font-size: 1.25rem; line-height: 1.25; }
+.skills-experience-summary p,
+.detail-card p { color: var(--ds-muted); font-size: .98rem; line-height: 1.68; }
+.detail-card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.detail-card { min-height: 190px; padding: 1.35rem; }
+.detail-card h3 { margin-top: 1.2rem; }
 
 .project-list { display: grid; gap: 1.25rem; }
 .project-list .project-card {
@@ -648,8 +663,11 @@ main > section:not(#hero) { border-top: 1px solid #d8d1c7; background: var(--cre
   .about-hero-grid,
   .project-list .project-card { grid-template-columns: 1fr; }
   .project-card:nth-child(even) .project-copy { order: initial; }
+  .skills-experience-summary,
+  .detail-card-grid,
   .skill-card-grid,
   .contact-card-grid { grid-template-columns: 1fr; }
+  .detail-card { min-height: 0; }
   .about-current-grid { grid-template-columns: 1fr; }
   .about-current-grid .content-card { min-height: 0; }
 }
