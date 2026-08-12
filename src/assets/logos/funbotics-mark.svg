@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 64" role="img" aria-labelledby="title">
+  <title id="title">Stanford Funbotics</title>
+  <rect width="160" height="64" rx="12" fill="#8c1515"/>
+  <g transform="translate(13 12)" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="1" y="7" width="38" height="29" rx="7"/>
+    <path d="M20 7V1m-9 19h1m16 0h1M12 29h16"/>
+  </g>
+  <text x="62" y="30" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="800">FUN</text>
+  <text x="62" y="46" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="800">BOTICS</text>
+</svg>
