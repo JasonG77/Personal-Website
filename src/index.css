@@ -194,13 +194,17 @@ body { background: var(--cream); }
 .penguin-body { transform-box: fill-box; transform-origin: center bottom; animation: penguin-idle 3.6s ease-in-out infinite; }
 .penguin-shadow { fill: rgba(24, 60, 102, .16); }
 .penguin-coat,
-.penguin-wing { fill: #1d416b; stroke: #163451; stroke-width: 2; stroke-linejoin: round; }
+.penguin-wing { fill: #101928; stroke: #080d17; stroke-width: 2; stroke-linejoin: round; }
 .penguin-belly,
-.penguin-face { fill: #edf7f4; stroke: #8ca6ad; stroke-width: 1.2; }
+.penguin-face { fill: #cbd5d6; stroke: #687982; stroke-width: 1.2; }
 .penguin-beak,
-.penguin-foot { fill: #e4a84a; stroke: #8d632d; stroke-width: 1.2; stroke-linejoin: round; }
+.penguin-foot { fill: #c68134; stroke: #68431f; stroke-width: 1.2; stroke-linejoin: round; }
 .penguin-eyes { fill: #173452; transform-box: fill-box; transform-origin: center; animation: penguin-blink 4.4s linear infinite; }
-.penguin-glasses { fill: rgba(198, 229, 240, .22); stroke: #315a8d; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.penguin-glasses { fill: rgba(8, 14, 25, .88); stroke: #0b1423; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.penguin-lens-shine { fill: none; stroke: #a9d7ef; stroke-width: 1.4; opacity: .72; }
+.penguin-chain { fill: none; stroke: #d4a33c; stroke-width: 2.3; stroke-linecap: round; stroke-linejoin: round; }
+.penguin-chain circle { fill: #d4a33c; stroke: #76521c; stroke-width: 1.2; }
+.penguin-chain .penguin-pendant-mark { fill: #fff0a6; stroke: none; }
 .penguin-wing-left { transform-box: fill-box; transform-origin: right top; animation: penguin-wave 5.2s ease-in-out infinite; }
 .player-intro-copy { min-width: 0; }
 .player-intro-copy > span { display: block; margin-bottom: .3rem; font-size: .45rem; font-weight: 700; letter-spacing: .12em; }

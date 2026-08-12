@@ -18,7 +18,7 @@ const PenguinMascot = ({ compact = false, animated = false }) => (
     viewBox="0 0 120 132"
     role={compact ? undefined : "img"}
     aria-hidden={compact ? "true" : undefined}
-    aria-label={compact ? undefined : "Byte, a small penguin wearing cobalt glasses"}
+    aria-label={compact ? undefined : "Byte, a small penguin wearing dark sunglasses and a gold chain"}
   >
     <g className="penguin-body">
       <path className="penguin-shadow" d="M27 121c10-7 55-7 66 0-10 8-56 8-66 0Z" />
@@ -36,6 +36,12 @@ const PenguinMascot = ({ compact = false, animated = false }) => (
         <rect x="36" y="37" width="22" height="19" rx="6" />
         <rect x="62" y="37" width="22" height="19" rx="6" />
         <path d="M58 44h4M35 42l-7-3M85 42l7-3" />
+        <path className="penguin-lens-shine" d="m41 42 6-2m22 2 6-2" />
+      </g>
+      <g className="penguin-chain">
+        <path d="M42 70c5 10 13 15 18 15s13-5 18-15" />
+        <circle cx="60" cy="86" r="5" />
+        <path className="penguin-pendant-mark" d="m60 82 1.2 2.5 2.8.4-2 2  .5 2.8-2.5-1.3-2.5 1.3.5-2.8-2-2 2.8-.4Z" />
       </g>
       <path className="penguin-foot" d="M52 116c-10-2-20 2-24 8 8 5 20 4 29-1Z" />
       <path className="penguin-foot" d="M68 116c10-2 20 2 24 8-8 5-20 4-29-1Z" />
