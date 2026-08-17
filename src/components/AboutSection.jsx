@@ -12,24 +12,6 @@ const aboutMedia = [
 
 const PHOTO_DISPLAY_MS = 3000;
 
-const motivations = [
-  {
-    label: "ROOTS",
-    title: "Houston to Stanford",
-    body: "My first-generation journey, my family’s immigrant story, and my Guatemalan heritage shape who I build for and why access matters.",
-  },
-  {
-    label: "MOTIVATION",
-    title: "Education changes lives",
-    body: "Learning opened doors in my life, so I want to help make those opportunities easier for others to reach.",
-  },
-  {
-    label: "DIRECTION",
-    title: "Technology for social good",
-    body: "I want to combine embedded systems and software to create practical, equitable tools for real communities.",
-  },
-];
-
 const AboutPhotoCard = () => {
   const [activeSlide, setActiveSlide] = useState(0);
   const [hasAutoAdvanced, setHasAutoAdvanced] = useState(false);
@@ -109,7 +91,7 @@ export const AboutSection = () => (
           
           <p>I was born and raised in Houston, Texas, and I&apos;m proudly shaped by my Guatemalan heritage. I&apos;m drawn to the intersection of computer science and electrical engineering where I plan to work on embedded systems, semiconductors, and building software that will transform the education technology landscape</p>
 
-          <blockquote>"I plan to dedicate my life to building a future in which, through technology, every person on this planet has access to the best quality of education." - Luis vohn Ahn
+          <blockquote>&ldquo;I plan to dedicate my life to building a future in which, through technology, every person on this planet has access to the best quality of education.&rdquo; - Luis vohn Ahn
           </blockquote>
 
           <div className="about-actions">
