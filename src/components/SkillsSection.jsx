@@ -14,14 +14,14 @@ export const SkillsExperienceSection = () => (
         label="SKILLS & EXPERIENCE"
         title="Technical range, grounded in practice"
         meta="ELECTRICAL ENGINEERING / COMPUTER SCIENCE / CLASS OF 2028"
-        intro="At Stanford, I am learning how computation moves from digital logic and circuits into embedded code and usable software—then applying that foundation through complete, tested projects."
+        intro="At Stanford, I am learning how computation moves from digital logic and circuits into embedded code and usable software to impactful projects"
       />
 
       <ContentCard className="skills-experience-summary">
         <MetaLabel>STANFORD UNIVERSITY</MetaLabel>
         <div>
           <h3>Learning by building across the stack</h3>
-          <p>My experience spans timing-closed RTL, sensor-driven firmware, board-level integration, and accessible React products. Each project strengthens the same habit: understand the system, test assumptions, and iterate from evidence.</p>
+          <p>My experience spans timing-closed RTL, sensor-driven firmware, board-level integration, and accessible React web products.</p>
         </div>
       </ContentCard>
 

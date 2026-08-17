@@ -1,5 +1,16 @@
-import { ArrowRight, FileText } from "lucide-react";
-import { ActionButton, ArchiveHeader, ContentCard, MetaLabel, PageContainer } from "./system/DesignSystem";
+import { useEffect, useState } from "react";
+import { ArrowRight, ChevronLeft, ChevronRight, FileText } from "lucide-react";
+import { ActionButton, ArchiveHeader, ContentCard, PageContainer } from "./system/DesignSystem";
+import portraitPhoto from "../assets/photos/jason-portrait.jpg";
+import introVideo from "../assets/videos/jason-intro.mp4";
+import introVideoPoster from "../assets/videos/jason-intro-poster.jpg";
+
+const aboutMedia = [
+  { type: "image", src: portraitPhoto, alt: "Portrait of Jason Gutierrez" },
+  { type: "video", src: introVideo, poster: introVideoPoster, alt: "Video introduction of Jason Gutierrez" },
+];
+
+const PHOTO_DISPLAY_MS = 3000;
 
 const motivations = [
   {
@@ -19,31 +30,87 @@ const motivations = [
   },
 ];
 
+const AboutPhotoCard = () => {
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [hasAutoAdvanced, setHasAutoAdvanced] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(() => (
+    typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  ));
+
+  useEffect(() => {
+    const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updateMotionPreference = () => setPrefersReducedMotion(motionPreference.matches);
+
+    motionPreference.addEventListener("change", updateMotionPreference);
+    return () => motionPreference.removeEventListener("change", updateMotionPreference);
+  }, []);
+
+  useEffect(() => {
+    if (prefersReducedMotion || activeSlide !== 0 || hasAutoAdvanced) return undefined;
+    const timer = setTimeout(() => {
+      setActiveSlide(1);
+      setHasAutoAdvanced(true);
+    }, PHOTO_DISPLAY_MS);
+    return () => clearTimeout(timer);
+  }, [activeSlide, prefersReducedMotion, hasAutoAdvanced]);
+
+  const showSlide = (direction) => {
+    setActiveSlide((current) => (current + direction + aboutMedia.length) % aboutMedia.length);
+  };
+
+  const currentMedia = aboutMedia[activeSlide];
+
+  return (
+    <figure className="about-photo-card">
+      <div className="about-photo-placeholder">
+        {currentMedia.type === "image" ? (
+          <img src={currentMedia.src} alt={currentMedia.alt} />
+        ) : (
+          <video key={currentMedia.src} src={currentMedia.src} poster={currentMedia.poster} loop={!prefersReducedMotion} controls playsInline preload="metadata" aria-label={currentMedia.alt}>
+            Your browser does not support embedded video.
+          </video>
+        )}
+
+        <button className="project-slide-control project-slide-previous" onClick={() => showSlide(-1)} aria-label="Show previous media"><ChevronLeft aria-hidden="true" /></button>
+        <button className="project-slide-control project-slide-next" onClick={() => showSlide(1)} aria-label="Show next media"><ChevronRight aria-hidden="true" /></button>
+      </div>
+
+      <div className="project-slide-status about-photo-status">
+        <div className="project-slide-dots" aria-label="Choose media">
+          {aboutMedia.map((media, index) => (
+            <button
+              key={media.type}
+              className={activeSlide === index ? "active" : ""}
+              onClick={() => setActiveSlide(index)}
+              aria-label={`Show ${media.type === "image" ? "photo" : "video"}`}
+              aria-current={activeSlide === index ? "true" : undefined}
+            />
+          ))}
+        </div>
+      </div>
+
+      <figcaption>JASON / STANFORD, CA / 2026</figcaption>
+    </figure>
+  );
+};
+
 export const AboutSection = () => (
   <section id="about" className="archive-section about-intro">
     <PageContainer>
       <ArchiveHeader
         number="01"
         label="ABOUT / JASON GUTIERREZ"
-        title="Engineering across the physical and digital."
-        intro="A first-generation Stanford student connecting electrical engineering and computer science to build technology for social good."
       />
 
       <div className="about-hero-grid">
-        <figure className="about-photo-card">
-          <div className="about-photo-placeholder" role="img" aria-label="Placeholder for a portrait of Jason Gutierrez">
-            <MetaLabel>PORTRAIT / COMING SOON</MetaLabel>
-            <strong>JG</strong>
-            <MetaLabel>DROP IMAGE HERE</MetaLabel>
-          </div>
-          <figcaption>JASON / STANFORD, CA / 2026</figcaption>
-        </figure>
+        <AboutPhotoCard />
 
         <ContentCard as="div" className="about-story">
-          <p className="about-lede">I was born and raised in Houston, Texas, and I&apos;m proudly shaped by my Guatemalan heritage.</p>
-          <p>I&apos;m drawn to the intersection of computer science and electrical engineering—especially using embedded systems and thoughtful software to solve problems that matter. Education technology is deeply personal to me because access to learning transformed my own path.</p>
+          
+          <p>I was born and raised in Houston, Texas, and I&apos;m proudly shaped by my Guatemalan heritage. I&apos;m drawn to the intersection of computer science and electrical engineering where I plan to work on embedded systems, semiconductors, and building software that will transform the education technology landscape</p>
 
-          <blockquote>Build technology that opens doors, not just technology that proves what is possible.</blockquote>
+          <blockquote>"I plan to dedicate my life to building a future in which, through technology, every person on this planet has access to the best quality of education." - Luis vohn Ahn
+          </blockquote>
 
           <div className="about-actions">
             <ActionButton to="/projects">Explore my work <ArrowRight aria-hidden="true" /></ActionButton>
@@ -51,27 +118,6 @@ export const AboutSection = () => (
           </div>
         </ContentCard>
       </div>
-
-      <div className="about-current" aria-labelledby="motivations-heading">
-        <div className="about-current-heading">
-          <MetaLabel as="p" id="motivations-heading">WHAT DRIVES ME</MetaLabel>
-          <span>the thread through my work</span>
-        </div>
-        <div className="about-current-grid">
-          {motivations.map((item) => (
-            <ContentCard key={item.label}>
-              <MetaLabel>{item.label}</MetaLabel>
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
-            </ContentCard>
-          ))}
-        </div>
-      </div>
-
-      <ContentCard as="div" className="about-north-star">
-        <MetaLabel>THE LONG-TERM GOAL</MetaLabel>
-        <p>Push the boundaries of technology while creating equitable resources that let anyone access a quality education, no matter where they begin or where they live.</p>
-      </ContentCard>
     </PageContainer>
   </section>
 );

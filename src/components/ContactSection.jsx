@@ -1,5 +1,5 @@
-import { ArrowUpRight, Mail } from "lucide-react";
-import { ActionButton, ArchiveHeader, ContentCard, MetaLabel, PageContainer } from "./system/DesignSystem";
+import { ArrowUpRight } from "lucide-react";
+import { ArchiveHeader, ContentCard, MetaLabel, PageContainer } from "./system/DesignSystem";
 
 const links = [
   ["EMAIL", "mailto:jasongutierrez318@gmail.com", "jasongutierrez318@gmail.com"],
@@ -13,8 +13,6 @@ export const ContactSection = () => (
       <ArchiveHeader
         number="07"
         label="CONTACT"
-        title="Let’s make something useful."
-        intro="For engineering opportunities, project conversations, or work focused on equitable technology."
       />
 
       <div className="contact-card-grid">
@@ -32,11 +30,6 @@ export const ContactSection = () => (
             <ArrowUpRight aria-hidden="true" />
           </ContentCard>
         ))}
-      </div>
-
-      <div className="contact-cta-row">
-        <ActionButton href="mailto:jasongutierrez318@gmail.com"><Mail aria-hidden="true" /> Start a conversation</ActionButton>
-        <MetaLabel>RÉSUMÉ / AVAILABLE BY REQUEST</MetaLabel>
       </div>
     </PageContainer>
   </section>

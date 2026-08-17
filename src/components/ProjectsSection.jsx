@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { ActionButton, ArchiveHeader, ContentCard, MetaLabel, PageContainer } from "./system/DesignSystem";
 import medHelper from "../projectPics/medHelper.png";
-import theremin from "../projectPics/theremin.jpg";
+import fpgaVideo from "../projectPics/FPGAproject.mp4";
 import signalButtons from "../projectPics/SignalButtons.JPG";
 import bike from "../projectPics/bike.jpg";
 import solderingVideo from "../projectPics/BikeSolderingVideo.m4v?url";
@@ -11,15 +11,20 @@ import solderingVideo from "../projectPics/BikeSolderingVideo.m4v?url";
 const projects = [
   {
     title: "MediHelper",
-    meta: "REACT / GOOGLE CLOUD / OPENAI / VERCEL",
+    meta: "REACT / GOOGLE CLOUD / OPENAI",
     description: "Healthcare and insurance systems are difficult to navigate when information is fragmented or overly technical. MediHelper uses an accessible React interface and cloud NLP to explain coverage, find providers, and coordinate appointments and transportation in one place.",
     media: [{ type: "image", src: medHelper, alt: "MediHelper application interface" }],
+    links: [
+      { label: "View on Devpost", href: "https://devpost.com/software/mediclaim" },
+      { label: "View on GitHub", href: "https://github.com/JasonG77/MediHelper/tree/main" },
+    ],
   },
   {
     title: "FPGA Music Synthesizer",
     meta: "FPGA / VERILOG HDL / RTL / VIVADO",
     description: "Rich, responsive audio is difficult to generate on resource-constrained digital hardware. This Verilog synthesizer produces multi-voice chords, harmonics, stereo panning, and sequenced songs through a timing-closed 100 MHz FPGA pipeline.",
-    media: [{ type: "image", src: theremin, alt: "FPGA music synthesizer hardware prototype" }],
+    media: [{ type: "video", src: fpgaVideo, alt: "FPGA music synthesizer hardware prototype in action" }],
+    links: [{ label: "View on GitHub", href: "https://github.com/JasonG77/Final-Project-EE108" }],
   },
   {
     title: "Smart Bike Light System",
@@ -30,6 +35,7 @@ const projects = [
       { type: "image", src: signalButtons, alt: "Smart bike light turn-signal buttons" },
       { type: "image", src: bike, alt: "Bike equipped with the smart light system" },
     ],
+    links: [{ label: "View on GitHub", href: "https://github.com/JasonG77/SmartBikeLight" }],
   },
 ];
 
@@ -95,8 +101,6 @@ export const ProjectsSection = () => {
         <ArchiveHeader
           number="05"
           label="SELECTED PROJECTS"
-          title="Built work"
-          intro="A focused set of projects showing how I use hardware and software to solve practical problems."
         />
         <div className="project-list">
           {projects.map((project, index) => (
@@ -106,7 +110,11 @@ export const ProjectsSection = () => {
                 <h3>{project.title}</h3>
                 <MetaLabel as="p" className="project-meta">{project.meta}</MetaLabel>
                 <p>{project.description}</p>
-                <ActionButton href="https://github.com/JasonG77" target="_blank" rel="noreferrer" variant="secondary">View project <ArrowUpRight aria-hidden="true" /></ActionButton>
+                <div className="project-links">
+                  {project.links.map((link) => (
+                    <ActionButton key={link.href} href={link.href} target="_blank" rel="noreferrer" variant="secondary">{link.label} <ArrowUpRight aria-hidden="true" /></ActionButton>
+                  ))}
+                </div>
               </div>
               <ProjectMedia project={project} />
             </ContentCard>

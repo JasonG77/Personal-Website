@@ -98,15 +98,12 @@ export const HeroSection = () => {
         <div className="player-screen" aria-live="polite">
           <div className="screen-status">
             <span>JG</span>
-            <strong>{screen === "intro" ? "HELLO, WORLD" : "ARCHIVE"}</strong>
+            <strong>{screen === "intro" ? "WELCOME" : "ARCHIVE"}</strong>
             <span>▮▮▮</span>
           </div>
           {screen === "intro" ? (
             <div className="player-intro">
               <div className="player-intro-copy">
-                <span>JASON GUTIERREZ / EE + CS</span>
-                <h2>Hi, I’m Jason.</h2>
-                <p>I build where hardware, software, and people meet.</p>
                 <button onClick={() => setScreen("menu")}><span>ENTER ARCHIVE</span><b>›</b></button>
               </div>
             </div>

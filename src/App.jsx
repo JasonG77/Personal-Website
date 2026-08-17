@@ -7,6 +7,7 @@ import { ProjectsPage } from "./pages/ProjectsPage";
 import { ContactPage } from "./pages/ContactPage";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { ClickSparks } from "./components/ClickSparks";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -23,6 +24,7 @@ function App() {
     <>
       <Toaster />
       <ThemeToggle />
+      <ClickSparks />
       <BrowserRouter>
         <ScrollToTop />
         <Routes>
