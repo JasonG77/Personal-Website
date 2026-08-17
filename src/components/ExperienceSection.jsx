@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, Image as ImageIcon } from "lucide-react";
-import { ArchiveHeader, MetaLabel, PageContainer, SectionDivider } from "./system/DesignSystem";
+import { MetaLabel, PageContainer, SectionDivider } from "./system/DesignSystem";
 import rezmeLogo from "../assets/logos/rezme-mark.svg";
 import intelLogo from "../assets/logos/intel-mark.svg";
 import funboticsPhoto1 from "../assets/clubs/funbotics-1.jpg";
